@@ -17,10 +17,19 @@
         android:contentDescription="TODO" />
 
     <TextView
-        android:id="@+id/activity_dashboard_textView"
+        android:id="@+id/activity_dashboard_textView_userId"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:text="Bem vindo =)"
-        android:textSize="36sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_dashboard_textView_userEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="TextView"
+        android:textSize="18sp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
