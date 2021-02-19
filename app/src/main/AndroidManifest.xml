@@ -8,12 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Androidfirebaseloginregister">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".DashboardActivity"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/Theme.Androidfirebaseloginregister.NoActionBar"></activity>
-        <activity android:name=".LoginActivity">
+            android:name=".Dashboard.DashboardActivity"
+            android:label="@string/title_activity_dashboard"></activity>
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

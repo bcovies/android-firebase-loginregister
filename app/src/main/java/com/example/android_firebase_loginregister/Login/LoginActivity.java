@@ -1,4 +1,4 @@
-package com.example.android_firebase_loginregister;
+package com.example.android_firebase_loginregister.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_firebase_loginregister.Dashboard.DashboardActivity;
+import com.example.android_firebase_loginregister.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -51,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
             acessaDashboardActivity();
         }
     }
-
 
     //Função para inicializar variáveis para onCrate;
     private void inicializarVariaveis() {
