@@ -4,19 +4,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
     //Variáveis:
-    EditText editText_email;
-    EditText editText_password;
-    Button button_login;
-    Button button_register;
+    private EditText editText_email;
+    private EditText editText_password;
+    private Button button_login;
+    private Button button_register;
+    private String email;
+    private String password;
+    private FirebaseAuth firebaseAuth;
 
-    //Função para inicializar variáveis para onCrate:
+    //Função para inicializar variáveis para onCrate;
     private void inicializarVariaveis() {
         editText_email = findViewById(R.id.activity_main_editTextTextEmailAddress);
         editText_password = findViewById(R.id.activity_main_editTextTextPassword);
@@ -24,28 +32,73 @@ public class LoginActivity extends AppCompatActivity {
         button_register = findViewById(R.id.activity_main_buttonRegister);
     }
 
+    //Aloca EditText para email e password;
+    public void alocarVariaveisString() {
+        email = editText_email.getText().toString();
+        password = editText_password.getText().toString();
+    }
+
+    //Função para Alocar firebaseAuth e permitir a criação da função para criar login no Firebase;
+    private void inicializaFirebaseAuth() {
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    //Função que cadastra o usuário no banco de dados Firebase;
+    private void cadastrarUsuarioFirebase(String email, String password){
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    System.out.println("\nCadastrado com sucesso!");
+                }
+            }
+        });
+    }
+    //Função que acessa o usuário no banco de dados Firebase;
+    private void acessarUsuarioFirebase(String email, String password){
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    System.out.println("\nAcessado com sucesso!");
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //Inicializa as variáveis:
+        //Inicializa as variáveis;
         inicializarVariaveis();
+        //Inicializa FirebaseAuth;
+        inicializaFirebaseAuth();
         //Cria um "Listener" para botão de login;
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "Botão Login", Toast.LENGTH_SHORT).show();
+                alocarVariaveisString();
+                System.out.println("\nBotão Login:\nEmail: " + email + "\nSenha: " + password);
+                acessarUsuarioFirebase(email,password);
             }
         });
         //Cria um "Listener" para o botão de register;
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "Botão Register", Toast.LENGTH_SHORT).show();
+                alocarVariaveisString();
+                //Aloca Variáveis necessárias para condição de registro;
+                final boolean emailArroba = email.contains("@");
+                final int tamanhoSenha = password.length();
+                //Cria condicional para filtrar condições para criar conta para Firebase;
+                if (tamanhoSenha > 5 && emailArroba) {
+                    System.out.println("\nBotão Register:\nEmail: " + email + "\nSenha: " + password + "\nTamanho senha: " + tamanhoSenha);
+                    cadastrarUsuarioFirebase(email,password);
+                } else {
+                    System.out.println("\nCondição necessária não alcançada");
+                }
             }
         });
-
     }
-
-
 }
