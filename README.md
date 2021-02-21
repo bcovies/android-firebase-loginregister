@@ -18,3 +18,7 @@ O android studio irá procurar nos seguintes locais:
 ..\android-firebase-loginregister-main\app\google-services.json
 
 ```
+
+
+Caso queira testar primeiro o aplicativo, você pode baixar o apk presente na raiz do sistema `android-firebase-loginregister.apk` e instalar ou no seu celular ou no emulador.
+## NÃO USE INFORMAÇÕES SENSÍVEIS! Está atrelado à minha conta google. Caso não consiga, o google derrubou o aplicativo. Use o youtube como referência.
