@@ -3,7 +3,9 @@ package com.example.android_firebase_loginregister.Dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +20,8 @@ public class DashboardActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private TextView textView_userId;
     private TextView textView_userEmail;
-
+    private Button button_resetEmail;
+    private FloatingActionButton floatingActionButton;
     //Função para usuário sair do estado de logado;
     private void usuarioSair() {
         System.out.println("\nusuarioSair:\nUsuário saindo...");
@@ -53,15 +56,27 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        FloatingActionButton fab = findViewById(R.id.activity_dashboard_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        
+        floatingActionButton = findViewById(R.id.activity_dashboard_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 usuarioSair();
                 acessaLoginActivity();
             }
         });
+
+        button_resetEmail = findViewById(R.id.activity_dashboard_button_resetEmail);
+
+        button_resetEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Button reset");
+            }
+        });
     }
+
+
 
     @Override
     protected void onStart() {

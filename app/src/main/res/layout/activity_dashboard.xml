@@ -32,4 +32,13 @@
         android:text="TextView"
         android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/activity_dashboard_button_resetEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="150dp"
+        android:text="Button" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
