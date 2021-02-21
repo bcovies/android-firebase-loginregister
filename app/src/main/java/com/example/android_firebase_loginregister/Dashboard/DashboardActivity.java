@@ -7,10 +7,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_firebase_loginregister.Login.LoginActivity;
 import com.example.android_firebase_loginregister.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,6 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
     private TextView textView_userEmail;
     private Button button_resetEmail;
     private FloatingActionButton floatingActionButton;
+
     //Função para usuário sair do estado de logado;
     private void usuarioSair() {
         System.out.println("\nusuarioSair:\nUsuário saindo...");
@@ -29,10 +33,18 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     //Função para retornar email do usuário;
-    private FirebaseAuth usuarioEmail(FirebaseAuth firebaseAuth) {
-        System.out.println("\nusuarioSair:\nUsuário saindo...");
-
-        return firebaseAuth;
+    private String usuarioEmail() {
+        String email = firebaseAuth.getInstance().getCurrentUser().getEmail();
+        return email;
+    }
+    //Envia email de recuperação para o email registrado no firebaseAuth
+    private void resetEmailUsuario(){
+        firebaseAuth.getInstance().sendPasswordResetEmail(usuarioEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Enviado email de recuperação!");
+            }
+        });
     }
 
     //Finaliza o activity atual e redireciona para o Login
@@ -48,15 +60,15 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void setTextoVariaveis() {
-        textView_userId.setText(" Usuário UID: "+firebaseAuth.getInstance().getCurrentUser().getUid());
-        textView_userEmail.setText(" Usuário Email: "+firebaseAuth.getInstance().getCurrentUser().getEmail().toString());
+        textView_userId.setText(" Usuário UID: " + firebaseAuth.getInstance().getCurrentUser().getUid());
+        textView_userEmail.setText(" Usuário Email: " + firebaseAuth.getInstance().getCurrentUser().getEmail().toString());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        
+
         floatingActionButton = findViewById(R.id.activity_dashboard_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,15 +79,13 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         button_resetEmail = findViewById(R.id.activity_dashboard_button_resetEmail);
-
         button_resetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Button reset");
+                resetEmailUsuario();
             }
         });
     }
-
 
 
     @Override
