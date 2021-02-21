@@ -85,6 +85,7 @@ public class DashboardActivity extends AppCompatActivity {
                 resetEmailUsuario();
             }
         });
+
     }
 
 
